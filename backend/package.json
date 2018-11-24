@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "koa server",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/koa": "^2.0.46",
+    "@types/koa-cors": "^0.0.0",
+    "@types/koa-router": "^7.0.32",
+    "nodemon": "^1.18.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.3"
+  },
+  "scripts": {
+    "server": "nodemon --watch server.ts -e ts,tsx --exec ts-node server.ts",
+    "app": "nodemon --watch app.ts -e ts,tsx --exec ts-node app.ts",
+    "watch-server": "nodemon --watch ./src/app.ts -e ts,tsx --exec ts-node ./src/app.ts",
+    "my-watch": "nodemon --watch ./src/gongshi.ts -e ts,tsx --exec ts-node ./src/gongshi.ts"
+  },
+  "author": "twy",
+  "license": "ISC"
+}
