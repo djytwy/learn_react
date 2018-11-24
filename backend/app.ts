@@ -5,6 +5,7 @@ import * as koaCors from 'koa-cors'
 import * as koaBodyParser from 'koa-bodyparser' 
 import * as jwt from 'jsonwebtoken'
 import client from './redis_con'
+import set_session from './redis_options'
 
 const app = new Koa();
 const router = new Router();
@@ -28,17 +29,18 @@ const Regsiter = (username:string,userpwd:string,userage:number) => {
     return user;
 }
 
-const Token = (username:string,userpwd:string) => {
+const Token = async (username:string,userpwd:string) => {
     let content = {userName:username};
     let key = "twy";
     let token = jwt.sign(content,key,{
         expiresIn:60*60*24
     });
     const date = new Date().getTime().toString()
-    return {redis:client.set(token,date,"EX",60*60*24),token:token};
+    const redis_msg = await set_session(token,date,"Ex",60*60)
+    return {redis:redis_msg,token:token};
 }
 
-const getToken = (token:string) => {
+const getToken = async (token:string) => {
     const msg = client.get(token, (error,replies) => {
         return replies
     })
@@ -95,21 +97,23 @@ router.
         interface loginMsg {
             username:any,
             userpwd:any
-        }
+        };
+
+        interface success_msg {
+            redis:any,
+            token:string
+        };
         let user_login:loginMsg = <loginMsg>ctx.request.body;
         const whereStr = {userName:user_login.username,userPwd:user_login.userpwd};
         
         const login = new Promise((resolve,rejects) => {
-            User.find(whereStr,(err,res) => {
+            User.find(whereStr,async (err,res) => {
                 if(Array.prototype.isPrototypeOf(res) && res.length === 0) {
                     console.log(`登录失败的一个`);
                     resolve(`账号或密码错误，请确认！`)
                 } else {
-                    interface success_msg {
-                        redis:any,
-                        token:string
-                    };
-                    const msg:success_msg = Token(user_login.username,user_login.userpwd);
+                    
+                    const msg:success_msg = await Token(user_login.username,user_login.userpwd);
 
                     if (msg.redis === true) {
                         ctx.cookies.set("token",msg.token);

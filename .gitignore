@@ -1,0 +1,3 @@
+backend/node_modules/*
+backend/test_mongo/*
+backend/test_redis/*
