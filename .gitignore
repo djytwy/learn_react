@@ -1,0 +1,11 @@
+backend
+**/node_modules/
+dist
+
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+server/session_test.js
