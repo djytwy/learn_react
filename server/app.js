@@ -6,7 +6,7 @@ const koaStatic = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
 const koaCors = require('koa-cors')
-const session = require('koa-session');
+const session = require('koa-session2');
 const config = require('./config')
 // const mongoose = require('./db_con/mongoCon')
 const routers = require('./routers/index')
@@ -16,7 +16,9 @@ const app = new Koa()
 app.keys = ['twy'];
 
 // 配置session中间件
-app.use(session(config.SESSION_CONFIG, app));
+app.use(session({
+  key:"SESSIONID"
+}));
 
 // 跨越请求
 app.use(koaCors({

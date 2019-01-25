@@ -1,6 +1,6 @@
 const koaCors =  require('koa-cors')
 const user = require('./../models/user')
-const session = require('./../models/session')
+const create_token = require('./../middlewares/create_token')
 
 class Api {
     // 登录
@@ -14,10 +14,11 @@ class Api {
         })
         
         if (user_flag) {
-            ctx.session.user = post_msg.user_name
-            const session_flag = await session.create({user:post_msg.user_name,session:ctx.cookies.get("session")}, err => {
-                if(err) return handleError(err);
-            })
+            const token = create_token(post_msg.user_name)
+            ctx.set("Authorization",post_msg.user_name)
+            ctx.response.body = "welcome !!"
+        } else {
+            ctx.response.body = "bad user !"
         }
     }
 
