@@ -4,7 +4,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import 'element-ui/lib/theme-chalk/index.css';
-import {Button,Row,Input,Dialog,MessageBox,Form,FormItem} from 'element-ui';
+import {Button,Row,Input,Dialog,MessageBox,Form,FormItem,Message} from 'element-ui';
 import axios from 'axios';
 
 Vue.config.productionTip = false
@@ -17,7 +17,8 @@ Vue.use(FormItem);
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
 Vue.prototype.$confirm = MessageBox.confirm;
-Vue.prototype.$http = axios
+Vue.prototype.$http = axios;
+Vue.prototype.$message = Message;
 
 axios.defaults.withCredentials=true;
 

@@ -15,7 +15,7 @@
         <el-row>
             <register></register>
             <el-button type="primary" @click="login()">登录</el-button>
-            <loginout></loginout>
+            <loginout user=""></loginout>
         </el-row>
     </div>
 </template>
@@ -31,7 +31,8 @@ export default {
         return {
            username:"",
            userpwd:"",
-           token:""
+           token:"",
+           login_name:""
         }   
     },
     components:{
@@ -41,15 +42,32 @@ export default {
     methods:{
         login(){
             let self = this
-            axios.post("http://127.0.0.1:19930/login",{
-                username:self.username,
-                userpwd:self.userpwd
-            }).then(response => {
-                console.log(`login success : ${response.data}`)
-            }).catch(error => {
-                console.log("error !!!")
+            axios.post("http://127.0.0.1:3001/api/login",{
+                user_name:self.username,
+                password:self.userpwd
+            })
+
+            .then(function(response) {
+                const data = response.data
+                if(data.status === "success") {
+                    self.$message({
+                        message: '登录成功 ！！！',
+                        type:'success'
+                    })
+                    self.login_name = data.user
+                    axios.defaults.headers.common['Authorization'] = data.user
+                } else {
+                    self.$message.error('账号或密码错误！')
+                }
+            })
+
+            .catch(function(err) {
+                console.log(`error : ${err}`)
             })
         }
+    },
+    mounted(){
+        
     }
 }
 </script>

@@ -6,7 +6,7 @@ const koaStatic = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
 const koaCors = require('koa-cors')
-const session = require('koa-session2');
+// const session = require('koa-session2');
 const config = require('./config')
 // const mongoose = require('./db_con/mongoCon')
 const routers = require('./routers/index')
@@ -16,17 +16,17 @@ const app = new Koa()
 app.keys = ['twy'];
 
 // 配置session中间件
-app.use(session({
-  key:"SESSIONID"
-}));
+// app.use(session({
+//   key:"SESSIONID"
+// }));
 
 // 跨越请求
-app.use(koaCors({
+app.use(convert(koaCors({
   maxAge: 7 * 24 * 60 * 60,
   credentials: true,
   methods: 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE',
   headers: 'Content-Type, Accept, Authorization'
-}));
+})));
 
 // 配置控制台日志中间件
 app.use(koaLogger())

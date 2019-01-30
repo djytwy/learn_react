@@ -9,12 +9,13 @@ import axios from 'axios'
 
 export default {
     name:'login_out',
+    props:['user'],
     methods:{
         login_out(){
             axios.get(
-                "http://127.0.0.1:19930/login_out",
+                "http://127.0.0.1:3001/login_out",
                 { params:
-                    { token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InR3eSIsImlhdCI6MTU0MTQ5ODAxMCwiZXhwIjoxNTQxNTg0NDEwfQ.ZQ1lUY-80n1EqYbMTYHZ19TQbBmgvyNOhYNVAtvLP98"}
+                    { token:""}
             }).then( response => {
                 console.log(response.data);
             }).catch( error => {

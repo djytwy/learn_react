@@ -1,17 +1,20 @@
 const mongoose = require('mongoose')
 const config = require('./../config')
 
+mongoose.set('useCreateIndex', true)
 mongoose.connect(config.MONGODB.DB_URL, { useNewUrlParser: true });
 
-mongoose.connection.on('connected',function(){
+let db = mongoose.connection;
+
+db.on('open',function(){
     console.log('Success connect :' + config.MONGODB.DB_URL);
 })
 
-mongoose.connection.on('error',function(){
+db.on('error',function(){
     console.log('Error connect :' + config.MONGODB.DB_URL);
 })
 
-mongoose.connection.on('disconnected',function(){
+db.on('disconnected',function(){
     console.log('Disconnected connect :' + config.MONGODB.DB_URL);
 })
 

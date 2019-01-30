@@ -1,6 +1,6 @@
-# koa_front
+# fronted
 
-> the front of koa server
+> fronted of js server 
 
 ## Build Setup
 
