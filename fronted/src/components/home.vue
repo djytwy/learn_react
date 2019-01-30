@@ -9,6 +9,7 @@
 import api from '../axios.js'
 
 export default {
+    name:"home",
     data(){
         return {
             judge:"未登陆！"

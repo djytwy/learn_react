@@ -1,6 +1,6 @@
 # fronted
 
-> fronted of js server 
+> koa server fronted
 
 ## Build Setup
 

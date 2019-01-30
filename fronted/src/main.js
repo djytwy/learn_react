@@ -6,6 +6,7 @@ import router from './router';
 import 'element-ui/lib/theme-chalk/index.css';
 import {Button,Row,Input,Dialog,MessageBox,Form,FormItem,Message} from 'element-ui';
 import axios from 'axios';
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.use(Button);
@@ -26,5 +27,6 @@ axios.defaults.withCredentials=true;
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

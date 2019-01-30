@@ -1,5 +1,5 @@
 <template>
-    <div id="login">
+    <div id="login_c">
         <h3>请输入用户名和密码：</h3>
         <el-input
             class="login_input"
@@ -13,17 +13,16 @@
             v-model="userpwd">
         </el-input>
         <el-row>
-            <register></register>
+            <!-- <register></register> -->
             <el-button type="primary" @click="login()">登录</el-button>
-            <loginout user=""></loginout>
         </el-row>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-import loginout from '@/components/login_out'
-import register from '@/components/register'
+// import loginout from '@/components/login_out'
+// import register from '@/components/register'
 
 export default {
     name:"login",
@@ -35,10 +34,10 @@ export default {
            login_name:""
         }   
     },
-    components:{
-        loginout,
-        register
-    },
+    // components:{
+    //     loginout,
+    //     register
+    // },
     methods:{
         login(){
             let self = this
@@ -49,13 +48,17 @@ export default {
 
             .then(function(response) {
                 const data = response.data
+
+                this.$store.dispatch('UserLogin', data.token);
+                this.$store.dispatch('UserName', data.user);
+
                 if(data.status === "success") {
                     self.$message({
                         message: '登录成功 ！！！',
                         type:'success'
                     })
                     self.login_name = data.user
-                    axios.defaults.headers.common['Authorization'] = data.user
+                    axios.defaults.headers.common['Authorization'] = data.token
                 } else {
                     self.$message.error('账号或密码错误！')
                 }
@@ -73,11 +76,5 @@ export default {
 </script>
 
 <style scoped>
-#login {
-    width: 20%;
-    margin: 0px auto;
-}
-.login_input {
-    margin: 15px
-}
+
 </style>

@@ -49,7 +49,7 @@ export default {
         },
         register() {
             let self = this
-            axios.post("http://127.0.0.1:19930/register",{
+            axios.post("http://127.0.0.1:3001/register",{
                 username:self.form.username,
                 userpwd:self.form.userpwd,
                 userage:self.form.userage
