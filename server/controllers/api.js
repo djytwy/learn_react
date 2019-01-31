@@ -59,6 +59,14 @@ class Api {
             ctx.request.status = 403
         }
     }
+
+    static async init (ctx) {
+        ctx.status = 200;
+        ctx.body = {
+            success : '成功',
+            result : 'success'
+        }
+    }
 }
 
 module.exports = Api

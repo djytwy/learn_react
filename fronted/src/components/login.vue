@@ -13,16 +13,15 @@
             v-model="userpwd">
         </el-input>
         <el-row>
-            <!-- <register></register> -->
+            <register></register>
             <el-button type="primary" @click="login()">登录</el-button>
         </el-row>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-// import loginout from '@/components/login_out'
-// import register from '@/components/register'
+import api from '../axios.js'
+import register from '@/components/register'
 
 export default {
     name:"login",
@@ -34,39 +33,33 @@ export default {
            login_name:""
         }   
     },
-    // components:{
-    //     loginout,
-    //     register
-    // },
+    components:{
+        register
+    },
     methods:{
         login(){
-            let self = this
-            axios.post("http://127.0.0.1:3001/api/login",{
-                user_name:self.username,
-                password:self.userpwd
-            })
+            const data = { user_name:this.username,password:this.userpwd }
+            api.login(data)
+                .then( response => {
+                    const data = response.data
+                    if( data.status === "success" ) {
+                        this.$message({
+                            message:"登录成功 ！！！",
+                            type:"success"
+                        })
+                        this.$store.dispatch('UserLogin', data.token);
+                        this.$store.dispatch('UserName', data.user);
+                        this.$router.push({
+                            path: "/"
+                        });
+                    } else {
+                        this.$message.error('账号或密码错误！')
+                    }
+                })
 
-            .then(function(response) {
-                const data = response.data
-
-                this.$store.dispatch('UserLogin', data.token);
-                this.$store.dispatch('UserName', data.user);
-
-                if(data.status === "success") {
-                    self.$message({
-                        message: '登录成功 ！！！',
-                        type:'success'
-                    })
-                    self.login_name = data.user
-                    axios.defaults.headers.common['Authorization'] = data.token
-                } else {
-                    self.$message.error('账号或密码错误！')
-                }
-            })
-
-            .catch(function(err) {
-                console.log(`error : ${err}`)
-            })
+                .catch( err => {
+                    console.log(`失败：${err}`)
+                })
         }
     },
     mounted(){

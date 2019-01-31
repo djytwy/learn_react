@@ -21,6 +21,7 @@ Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$http = axios;
 Vue.prototype.$message = Message;
 
+Vue.prototype.$http = axios
 axios.defaults.withCredentials=true;
 
 /* eslint-disable no-new */

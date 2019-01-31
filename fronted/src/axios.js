@@ -48,8 +48,13 @@ instance.interceptors.response.use(
 );
 
 class User {
+
     static home(){
-        return instance.get('http://127.0.0.1:3001/init')
+        return instance.get('/api/init')
+    }
+    
+    static login(data){
+        return instance.post('/api/login', data)
     }
 }
 
