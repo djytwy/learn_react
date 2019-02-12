@@ -7,4 +7,5 @@ const router = new Router()
 module.exports = router
     .post('/register',Api.register)
     .post('/login',Api.login)
+    .get('/login_out',Api.login_out)
     .get('/init',TokenOprions.check_token,Api.init)

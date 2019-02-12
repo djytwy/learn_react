@@ -5,7 +5,7 @@ const utility = require('utility')
 
 class Api {
     // 登录
-    static async login (ctx) {
+    static async login(ctx) {
         await koaCors()
         const post_msg = ctx.request.body
         console.log(JSON.stringify(post_msg.user_name,null,4))
@@ -51,15 +51,17 @@ class Api {
             const flag = await token_options.del_token(user)
             if(flag) {
                 console.log(`这是删除的标志：${flag}`)
-                ctx.response.body === `success !`
+                ctx.body = 'success !'
             } else {
                 console.log(`退出失败！`)
+                ctx.body = 'error !'
             }
         } else {
             ctx.request.status = 403
         }
     }
 
+    // 初始页
     static async init (ctx) {
         ctx.status = 200;
         ctx.body = {

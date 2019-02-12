@@ -19,10 +19,10 @@ export default {
     },
     created(){
         api.home().then( response => {
-            if(response.status === 401){
+            if (response.status === 401) {
                 this.$router.push('/login');
-                //可以把无效的token清楚掉
-                this.$store.dispatch('UserLogout');
+                //可以把无效的token清除掉
+                this.$store.dispatch('UserLoginout');
             } else {
                 this.show = true;
                 this.judge = response.data
@@ -31,15 +31,22 @@ export default {
     },
     methods:{
         login_out(){
-            this.$store.dispatch('UserLoginout');
-            if (!this.$store.state.token) {
-                this.$router.push('/login')
-                this.$message({
-                    type:'success',
-                    message:'登出成功！'
+            if (this.$store.state.username) {
+                api.login_out(this.$store.state.username).then( response => {
+                    if(response.data === 'success !') {
+                        console.log('登出成功 ！')
+                        this.$store.dispatch('UserLoginout');
+                        if (!this.$store.state.token) {
+                            this.$router.push('/login')
+                            this.$message({
+                                type:'success',
+                                message:'登出成功！'
+                            })
+                        } else {
+                            this.$message.error('登出失败 ！')
+                        }
+                    }
                 })
-            } else {
-                this.$message.error('登出失败 ！')
             }
         }
     }
