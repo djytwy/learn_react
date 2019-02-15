@@ -53,14 +53,18 @@ class User {
         return instance.get('/api/init')
     }
     
+    static register(data){
+        return instance.post('/api/register', data)
+    }
+
     static login(data){
         return instance.post('/api/login', data)
     }
 
-    static login_out(user){
+    static login_out(token){
         return instance.get('/api/login_out',{
             params: {
-                user:user
+                token:token
             }
         })
     }

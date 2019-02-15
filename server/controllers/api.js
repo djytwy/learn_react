@@ -11,20 +11,26 @@ class Api {
         console.log(JSON.stringify(post_msg.user_name,null,4))
         const pwd_md5 = utility.md5(post_msg.password)
 
-        const user_flag = await user.findOne({
-            user_name:post_msg.user_name,
-            user_pwd:pwd_md5
-        }, err => {
-            if(err) return handleError(err);
-        })
+        const user_msg = await user.findOne({
+                user_name:post_msg.user_name,
+                user_pwd:pwd_md5
+            },
+            (err,res) => {
+                if(err) 
+                    return handleError(err);
+                else 
+                    console.log(`登录成功：${res}`)
+            }
+        )
         
-        if (user_flag) {
+        if (user_msg) {
             const token = await token_options.creat_token(post_msg.user_name)
             ctx.response.body = { 
                 status:'success',
                 user:post_msg.user_name,
                 token:token
             }
+            console.log(`这是用户信息： ${user_msg}`)
         } else {
             ctx.response.body = { status:'fail'}
         }
@@ -47,8 +53,10 @@ class Api {
     static async login_out(ctx) {
         await koaCors()
         if (ctx.request.method === "GET") {
-            const user = ctx.query.user
+            const token = ctx.query.token
+            const user = await token_options.decode_token(token)
             const flag = await token_options.del_token(user)
+
             if(flag) {
                 console.log(`这是删除的标志：${flag}`)
                 ctx.body = 'success !'

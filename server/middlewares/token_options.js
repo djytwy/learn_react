@@ -56,6 +56,16 @@ class TOKEN {
         }
         await next();
     }
+
+    static async decode_token(token) {
+        return new Promise( async (resolve,reject) => {
+            const decoded = jwt.decode(token)
+            if(decoded.hasOwnProperty)
+                resolve(decoded.user)
+            else
+                reject("解码token失败")
+        }) 
+    }
 }
 
 module.exports = TOKEN

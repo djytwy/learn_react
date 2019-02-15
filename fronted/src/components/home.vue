@@ -31,22 +31,27 @@ export default {
     },
     methods:{
         login_out(){
-            if (this.$store.state.username) {
-                api.login_out(this.$store.state.username).then( response => {
-                    if(response.data === 'success !') {
-                        console.log('登出成功 ！')
-                        this.$store.dispatch('UserLoginout');
-                        if (!this.$store.state.token) {
-                            this.$router.push('/login')
-                            this.$message({
-                                type:'success',
-                                message:'登出成功！'
-                            })
+            if (this.$store.state.token) {
+                api.login_out(this.$store.state.token).
+                    then( response => {
+                        if(response.data === 'success !') {
+                            console.log('登出成功 ！')
+                            this.$store.dispatch('UserLoginout');
+                            if (!this.$store.state.token) {
+                                this.$router.push('/login')
+                                this.$message({
+                                    type:'success',
+                                    message:'登出成功！'
+                                })
+                            } else {
+                                this.$message.error('本地数据异常，登出失败 ！')
+                            }
                         } else {
-                            this.$message.error('登出失败 ！')
+                            this.$message.error('服务器异常！登出失败 ！')
                         }
-                    }
-                })
+                    })
+            } else {
+                console.log("未检测到token，登出失败！")
             }
         }
     }
