@@ -11,17 +11,7 @@ class Api {
         console.log(JSON.stringify(post_msg.user_name,null,4))
         const pwd_md5 = utility.md5(post_msg.password)
 
-        const user_msg = await user.findOne({
-                user_name:post_msg.user_name,
-                user_pwd:pwd_md5
-            },
-            (err,res) => {
-                if(err) 
-                    return handleError(err);
-                else 
-                    console.log(`登录成功：${res}`)
-            }
-        )
+        const user_msg = await Api.find_user(post_msg,pwd_md5)
         
         if (user_msg) {
             const token = await token_options.creat_token(post_msg.user_name)
@@ -41,12 +31,20 @@ class Api {
         await koaCors()
         const post_msg = ctx.request.body
         console.log(JSON.stringify(post_msg,null,4))
-        const add_flag = await user.create({
-            user_name:post_msg.user_name,
-            user_pwd:utility.md5(post_msg.password),
-            user_age:post_msg.age
-        })
-        ctx.response.body = add_flag
+        const pwd_md5 = utility.md5(post_msg.password)
+        let user_msg = await Api.find_user(post_msg,pwd_md5)
+        console.log("这是信息：")
+        console.log(user_msg)
+        if(user_msg)
+            ctx.response.body = { status:'fail'}
+        else {
+            user_msg = await user.create({
+                user_name:post_msg.user_name,
+                user_pwd:utility.md5(post_msg.password),
+                user_age:post_msg.age
+            })
+            ctx.response.body = user_msg
+        }
     }
 
     // 登出
@@ -76,6 +74,21 @@ class Api {
             success : '成功',
             result : 'success'
         }
+    }
+
+    static async find_user (post_msg,pwd_md5) {
+        const user_msg = await user.findOne({
+                user_name:post_msg.user_name,
+                user_pwd:pwd_md5
+            },
+            (err,res) => {
+                if(err) 
+                    return handleError(err);
+                else 
+                    console.log(`登录成功：${res}`)
+            }
+        )
+        return user_msg
     }
 }
 

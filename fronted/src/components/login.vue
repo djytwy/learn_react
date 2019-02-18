@@ -27,23 +27,21 @@ export default {
         const validateUsername = (rule, value, callback) => {
             const reg = /[\*\&\%\$\#\@\!\(\)\^\-\=\+\_]/
             if (!value) 
-                return callback(new Error('用户名不能为空！'))
-            else if(reg.test(value)){
+                callback(new Error('用户名不能为空！'))
+            else if(reg.test(value))
                 callback(new Error('用户名不能包含违法字符！'))
-            } else {
+            else 
                 callback()
-            }
         }
 
         const validatePassword = (rule, value, callback) => {
             const reg = /[\*\&\%\$\#\@\!\(\)\^\-\=\+\_]/
             if (!value) 
-                return callback(new Error('密码不能为空！'))
-            else if(reg.test(value)){
+                callback(new Error('密码不能为空！'))
+            else if(reg.test(value))
                 callback(new Error('密码中不能包含违法字符！'))
-            } else {
+            else 
                 callback()
-            }
         }
 
         return {
