@@ -4,16 +4,12 @@ const views = require('koa-views')
 const koaStatic = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
-const Cors = require('koa2-cors')
 const config = require('./config')
 const routers = require('./routers/index')
 
 const app = new Koa()
 
 app.keys = ['twy'];
-
-// 跨越请求
-app.use(Cors())
 
 // 配置控制台日志中间件
 app.use(koaLogger())

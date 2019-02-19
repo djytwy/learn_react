@@ -11,6 +11,7 @@ module.exports = {
     env: require('./dev.env'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    // 配置代理服务器进行请求的转发
     proxyTable: {
       '/api':{
         target:'http://localhost:3001/api',

@@ -20,7 +20,7 @@
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="show_dialog = false">取消</el-button>
-                <el-button type="primary" @click="register('form'),show_dialog = false">提交</el-button>
+                <el-button type="primary" @click="register('form')">提交</el-button>
             </span>
         </el-dialog>
     </span>
@@ -32,14 +32,15 @@ import api from '../axios.js'
 export default {
     data(){
 
-        const validateUsername = (rule, value, callback) => {
+        const validateUsername = async (rule, value, callback) => {
             const reg = /[\*\&\%\$\#\@\!\(\)\^\-\=\+\_]/  
             if (!value)
                 callback(new Error('用户名不能为空！'))
             else if (reg.test(value))
                 callback(new Error('用户名不能包含违法字符！'))
-            else 
-                callback()
+            else if (await this.find_user())
+                callback(new Error('这个用户名已经被注册了！'))
+            callback()
         }
 
         const validatePassword = (rule, value, callback) => {
@@ -55,11 +56,14 @@ export default {
         }
 
         const validateAge = (rule, value, callback) => {
+            const reg_age = /[\*\&\%\$\#\@\!\(\)\^\-\=\+\_a-zA-Z]/
             if(!value)
                 return callback(new Error('年龄不能为空！'))
             else if(value < 18)
-                callback(new Error('年龄小于18！'))
-            else
+                callback(new Error('您的年龄小于18！'))
+            else if (reg_age.test(value)) 
+                callback(new Error('请输入数字值！'))
+            else 
                 callback()
         }
 
@@ -67,7 +71,7 @@ export default {
             form:{
                 user_name:"",
                 password:"",
-                age:"",
+                age:null,
             },
             show_dialog:false,
             check_reg:{
@@ -101,8 +105,8 @@ export default {
                     .then( response => {
                         const data = response.data
                         console.log(`服务器返回的信息：${JSON.stringify(data)}`)
-                        if(data.hasOwnProperty("status")) {
-                            this.$message.error('该账号已经被注册！')
+                        if(data.status === "fail") {
+                            this.$message.error(data.message)
                         } else {
                             self.resetForm('form')
                             self.$message({
@@ -115,11 +119,40 @@ export default {
                     .catch( err => {
                         console.log(`错误：${err}`)
                     })
+
+                    this.show_dialog = false
                 }
             })   
         },
         resetForm(formName){
             this.$refs[formName].resetFields()
+        },
+        async find_user(){
+            let self = this
+            const flag = await api.find_user(this.form)
+
+                .then( response => {
+                    const data = response.data
+                    console.log(`服务器返回的信息：${JSON.stringify(data)}`)
+                    if(data.status === "fail") {
+                        return new Promise((resolve,reject) => {
+                            resolve(data.message)
+                        })
+                    } else {
+                        return new Promise((resolve,reject) => {
+                            resolve(false)
+                        })
+                    }
+                })
+        
+                .catch( err => {
+                    console.log(`错误：${err}`)
+                    return new Promise((resolve,reject) => {
+                        resolve(false)
+                    })
+                })
+            console.log(`标志位：${flag}`)
+            return flag
         },
         click_reg(formName) {
             this.show_dialog = true

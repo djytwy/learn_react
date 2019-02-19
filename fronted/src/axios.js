@@ -61,6 +61,10 @@ class User {
         return instance.post('/api/login', data)
     }
 
+    static find_user(data){
+        return instance.post('/api/find_user',data)
+    }
+
     static login_out(token){
         return instance.get('/api/login_out',{
             params: {

@@ -31,7 +31,10 @@ const router = new Router({
     {
       path:'/login',
       name:'login',
-      component:Login
+      component:Login,
+      meta:{
+        loginCheck: true
+      }
     }
   ]
 })
@@ -53,7 +56,16 @@ router.beforeEach((to, from, next) => {
       });
     }
 
-  }else{
+  } else if (to.meta.loginCheck) {
+    if(token) {
+      next({
+        path:'/',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    } 
+  } else {
     next();//如果无需token,那么随它去吧
   }
 });
