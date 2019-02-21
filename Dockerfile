@@ -6,7 +6,6 @@ ADD ./ /usr/src/app
 WORKDIR /usr/src/app
 
 VOLUME [ "/usr/src/app" ]
-ENTRYPOINT [ "app" ]
 
 EXPOSE 3001
 CMD [ "npm","app" ]
