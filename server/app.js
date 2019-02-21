@@ -32,4 +32,4 @@ app.use(routers.routes()).use(routers.allowedMethods())
 
 // 监听启动端口
 app.listen( config.PORT )
-console.log(`the server is start at port ${config.PORT}`)
+console.log(`the server is start at port: ${config.PORT}`)

@@ -88,9 +88,6 @@ export default {
                     console.log(`失败：${err}`)
                 })
         }
-    },
-    mounted(){
-        
     }
 }
 </script>
