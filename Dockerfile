@@ -1,18 +1,18 @@
 FROM daocloud.io/node:8.4.0-onbuild
 MAINTAINER twy
 
-ADD ./ /opt/myApp
+ADD ./ /usr/src/app
 
-WORKDIR /opt/myApp
+WORKDIR /usr/src/app
 
-RUN cd /opt/myApp/fronted \
+RUN cd /usr/src/app/fronted \
     && echo hello world \
     && npm run build \
-    && cd /opt/myApp/server \
+    && cd usr/src/app/server \
     && npm install
 
-VOLUME [ "/opt/myApp" ]
-ENTRYPOINT [ "myApp" ]
+VOLUME [ "/usr/src/app" ]
+ENTRYPOINT [ "app" ]
 
 EXPOSE 3001
     
