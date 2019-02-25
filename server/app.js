@@ -31,5 +31,5 @@ app.use(views(path.join(__dirname, './../dist'), {
 app.use(routers.routes()).use(routers.allowedMethods())
 
 // 监听启动端口
-app.listen( config.PORT )
+app.listen( config.PORT,"0.0.0.0" )
 console.log(`the server is start at port: ${config.PORT}`)
