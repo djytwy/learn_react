@@ -8,5 +8,5 @@ WORKDIR /usr/src/app
 VOLUME [ "/usr/src/app" ]
 
 EXPOSE 3001
-CMD [ "npm run app"]
+ENTRYPOINT npm run app
     
