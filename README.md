@@ -1,23 +1,22 @@
-# fronted
-
-> koa server fronted
+# koaServer with Vue.js
+一个基于Koa和Vue的登录鉴权demo,使用token进行鉴权,配合redis进行缓存
+主要用到的技术栈：
+后端：Koa,Koa-router,mongodb(Mongoose),redis(ioredis),jwt(jsonwebtoken)
+前端：Vue,Element-ui,Vue-router,Vue-cli,Vuex,axios
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 启动Vue前端app
 npm run dev
 
-# build for production with minification
+# 打包Vue前端app
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run my app 
+# 运行后端app
 npm run app
 ```
 
