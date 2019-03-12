@@ -4,6 +4,7 @@
 后端：Koa,Koa-router,mongodb(Mongoose),redis(ioredis),jwt(jsonwebtoken)
 前端：Vue,Element-ui,Vue-router,Vue-cli,Vuex,axios
 
+新增了MongoDB的用户认证
 ## Build Setup
 
 ``` bash
