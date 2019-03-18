@@ -1,4 +1,4 @@
-FROM daocloud.io/node:8.4.0-onbuild
+FROM docker.io/node:10.15-alpine
 MAINTAINER twy
 
 ADD ./ /usr/src/app
