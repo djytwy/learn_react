@@ -6,6 +6,7 @@ const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
 const config = require('./config')
 const routers = require('./routers/index')
+const logTime = require('./middlewares/response_time')
 
 const app = new Koa()
 
@@ -16,6 +17,9 @@ app.use(koaLogger())
 
 // 配置ctx.body解析中间件
 app.use(bodyParser())
+
+// 记录响应时间的中间件
+app.use(logTime())
 
 // 配置静态资源加载中间件
 app.use(koaStatic(
