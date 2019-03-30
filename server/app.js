@@ -21,15 +21,18 @@ app.use(bodyParser())
 // 记录响应时间的中间件
 app.use(logTime())
 
-// 配置静态资源加载中间件
-app.use(koaStatic(
-  path.join(__dirname , './../dist')
-))
+if(config.PRODUCTION) {
+  // 配置静态资源加载中间件
+  app.use(koaStatic(
+    path.join(__dirname , './../dist')
+  ))
 
-// 配置服务端模板渲染引擎中间件
-app.use(views(path.join(__dirname, './../dist'), {
-  extension: 'ejs'
-}))
+  // 配置服务端模板渲染引擎中间件
+  app.use(views(path.join(__dirname, './../dist'), {
+    extension: 'ejs'
+  }))
+} else
+  console.log("测试接口....")
 
 // 初始化路由中间件
 app.use(routers.routes()).use(routers.allowedMethods())

@@ -10,7 +10,8 @@ const config = {
     },
     TOKEN:{
         EXPIRESIN:60*60*24
-    }
+    },
+    PRODUCTION: true
 }
 
 module.exports = config
