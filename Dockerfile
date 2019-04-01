@@ -5,8 +5,8 @@ ADD ./ /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN npm install\
-    npm run build
+RUN npm install \
+    && npm run build
 
 VOLUME [ "/usr/src/app" ]
 
