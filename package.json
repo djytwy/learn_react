@@ -1,0 +1,40 @@
+{
+  "name": "vue-koa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "app": "node ./server/app.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "compression-webpack-plugin": "^2.0.0",
+    "ejs": "^2.6.1",
+    "element-ui": "^2.6.1",
+    "ioredis": "^4.9.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.2.0",
+    "mongoose": "^5.4.20",
+    "path": "^0.12.7",
+    "utility": "^1.16.1",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-eslint": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21"
+  }
+}
