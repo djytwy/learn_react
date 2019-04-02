@@ -1,4 +1,5 @@
-# fronted
+# Koa_server
+主要是提供一个koa后端，vue前端的基础脚手架
 
 ## Project setup
 ```
