@@ -7,7 +7,7 @@ class Api {
     static async login(ctx) {
         if (ctx.request.method === "POST") {
             const post_msg = ctx.request.body
-            const reg = /[\*\&\%\$\#\@\!\(\)\^\-\=\+\_]/
+            const reg = /[*&%$#@!()^-=+_]/
             console.log(JSON.stringify(post_msg.user_name,null,4))
             if (!post_msg.password || !post_msg.user_name) 
                 ctx.response.body = { status:'fail',message:'账号或密码缺失！'}
@@ -37,8 +37,8 @@ class Api {
     static async register(ctx) {
         if (ctx.request.method === "POST") {
             const post_msg = ctx.request.body,
-                reg = /[\*\&\%\$\#\@\!\(\)\^\-\=\+\_]/,
-                reg_age = /[\*\&\%\$\#\@\!\(\)\^\-\=\+\_a-zA-Z]/
+                reg = /[*&%$#@!()^-=+_]/,
+                reg_age = /[*&%$#@!()^-=+_a-zA-Z]/
 
             console.log(JSON.stringify(post_msg,null,4))
             if (!post_msg.password || !post_msg.age || !post_msg.user_name) 
@@ -104,7 +104,7 @@ class Api {
                 },
                 (err,res) => {
                     if(err) 
-                        return handleError(err);
+                        return err;
                     else 
                         console.log(`登录的查询结果：${res} !`)
                 }
@@ -116,7 +116,7 @@ class Api {
                 },
                 (err,res) => {
                     if(err) 
-                        return handleError(err);
+                        return err;
                     else 
                         console.log(`查询结果：${res} !`)
                 }
