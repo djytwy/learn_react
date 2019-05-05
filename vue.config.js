@@ -18,7 +18,7 @@ module.exports = {
             config.externals = {
                 vue: "Vue",
                 axios: 'axios',
-                // 这个地方如果和mian.js一起改为elementUI这种小写的，就会报错找不到，原因未知
+                // 这个地方如果和main.js一起改为elementUI这种小写的，就会报错找不到，原因未知
                 "element-ui": "ELEMENT"
             }
         }
