@@ -6,43 +6,64 @@ Vue.use(Router)
 
 // 路由懒加载
 const Home = resolve => {
-  require.ensure(['./views/home.vue'], () => {
-    resolve(require('./views/home.vue'))
-  })
+  	require.ensure(['./views/home.vue'], () => {
+    	resolve(require('./views/home.vue'))
+  	})
 }
 
 const Login = resolve => {
-  require.ensure(['./components/login.vue'], () => {
-    resolve(require('./components/login.vue'))
-  })
+  	require.ensure(['./components/login.vue'], () => {
+    	resolve(require('./components/login.vue'))
+  	})
 }
 
-const test = resolve => require(['./components/test'], resolve)
+const Line = resolve => {
+  	require.ensure(['./views/showLineCharts.vue'], () => {
+    	resolve(require('./views/showLineCharts.vue'))
+  	})
+}
+
+const Rose = resolve => {
+  	require.ensure(['./views/showRoseCharts.vue'], () => {
+    	resolve(require('./views/showRoseCharts.vue'))
+  	})
+}
+
+const test = resolve => {
+	require.ensure(['./components/test.vue'], () => {
+		resolve(ensure('./components/test.vue'))
+	})
+}
 
 const router = new Router({
-  mode:'history',
-  routes:[
-    {
-      path:'/',
-      name:'home',
-      component:Home,
-      meta:{ 
-        requireAuth: true
-      }
-    },
-    {
-      path:'/login',
-      name:'login',
-      component:Login,
-      meta:{
-        loginCheck: true
-      }
-    },
-    {
-      path:'/test',
-      name:"test",
-      component:test
-    }
+  	mode:'history',
+  	routes:[{
+		path:'/',
+		name:'home',
+		component:Home,
+		meta:{ 
+			requireAuth: true
+		}
+	},{
+		path:'/login',
+		name:'login',
+		component:Login,
+		meta:{
+			loginCheck: true
+		}
+    },{
+		path:'/test',
+		name:"test",
+		component:test
+	},{
+		path:'/Line',
+		name:'Line',
+		component:Line
+	},{
+		path:'/Rose',
+		name:'Rose',
+		component:Rose
+	}
   ]
 })
 
