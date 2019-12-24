@@ -1,5 +1,6 @@
 # Koa_server
 主要是提供一个koa后端，vue前端的基础脚手架
+为了减少包体积，部分资源使用了cdn加速去获取
 
 ## Project setup
 ```
